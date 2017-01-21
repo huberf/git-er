@@ -7,6 +7,12 @@ d = h.read()
 h.close()
 paths = d.split('\n')
 
+def syncAll():
+    for i in paths:
+        if not i == '':
+            print 'git push ', i
+            os.system('cd "' + i + '"; git pull; git push;')
+
 try:
     if sys.argv[1] == 'add':
         z = open(home + 'watchList.txt', 'w')
@@ -14,14 +20,8 @@ try:
     elif sys.argv[1] == 'show':
         print d
     elif sys.argv[1] == 'sync':
-        for i in paths:
-            if not i == '':
-                print 'git push ', i
-                os.system('cd "' + i + '"; git pull; git push;')
+        syncAll()
     else:
         print "Supplied argument found no match."
 except:
-    for i in paths:
-        if not i == '':
-            print 'git push ', i
-            os.system('cd "' + i + '"; git pull; git push;')
+    syncAll()
